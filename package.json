@@ -1,0 +1,35 @@
+{
+  "name": "devpanes",
+  "version": "1.0.0",
+  "description": "Split-pane terminal UI for managing multiple dev processes",
+  "type": "module",
+  "bin": {
+    "devpanes": "./bin/devpanes.js"
+  },
+  "exports": {
+    ".": "./lib/runner.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "terminal",
+    "dev",
+    "processes",
+    "split-pane",
+    "monorepo",
+    "tui"
+  ],
+  "license": "MIT",
+  "author": "Chad",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chad/devpanes"
+  }
+}
