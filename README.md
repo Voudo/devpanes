@@ -2,6 +2,8 @@
 
 Split-pane terminal UI for managing multiple dev processes. Zero dependencies, pure ESM, Node >= 18.
 
+![Kapture 2026-03-17 at 10 16 49](https://github.com/user-attachments/assets/32ba3592-f3ca-4919-8b26-a79b146cc1e3)
+
 ## Install
 
 ```bash
