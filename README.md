@@ -5,11 +5,15 @@ Split-pane terminal UI for managing multiple dev processes. Zero dependencies, p
 ## Install
 
 ```bash
-# Run directly
-npx devpanes
+# Install as a dev dependency (recommended)
+npm install --save-dev @voudo/devpanes
+```
 
-# Or install as a dev dependency
-npm install --save-dev devpanes
+> **Note:** `npx @voudo/devpanes` won't work due to an npm quirk with scoped packages where the bin name (`devpanes`) doesn't match the package name. Use the one-liner below, or just install it first and run `npx devpanes`.
+
+```bash
+# Zero-install one-liner
+npx -p @voudo/devpanes devpanes
 ```
 
 ## Quick Start
@@ -27,10 +31,14 @@ export default {
 }
 ```
 
-Then run:
+Then add a script to `package.json` and run:
+
+```json
+{ "scripts": { "dev": "devpanes" } }
+```
 
 ```bash
-npx devpanes
+npm run dev
 ```
 
 ## CLI Options

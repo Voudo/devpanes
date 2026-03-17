@@ -1,10 +1,10 @@
 {
-  "name": "devpanes",
-  "version": "1.0.0",
+  "name": "@voudo/devpanes",
+  "version": "1.0.3",
   "description": "Split-pane terminal UI for managing multiple dev processes",
   "type": "module",
   "bin": {
-    "devpanes": "./bin/devpanes.js"
+    "devpanes": "./bin/cli.js"
   },
   "exports": {
     ".": "./lib/runner.js"
