@@ -27,9 +27,9 @@
     "tui"
   ],
   "license": "MIT",
-  "author": "Chad",
+  "author": "Chad Beninati <chad@voudo.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chad/devpanes"
+    "url": "https://github.com/Voudo/devpanes"
   }
 }

@@ -1,4 +1,4 @@
-# devpanes
+# devpanes, by [Voudo](https://www.voudo.com)
 
 Split-pane terminal UI for managing multiple dev processes. Zero dependencies, pure ESM, Node >= 18.
 

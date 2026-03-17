@@ -36,7 +36,17 @@ There is no build step, test suite, or linter configured. The project is plain J
 - `constants.js` — ANSI color palette, pane states enum, expand key mappings (Shift+1-7 on US keyboard).
 
 **Key patterns:**
-- State is held in a `Map<appKey, entry>` (`procs`) where each entry tracks the spawned process, pane state (normal/hidden/expanded), color, and circular line buffer.
+- State is held in a `Map<appKey, entry>` (`processes`) where each entry tracks the spawned process, pane state (normal/hidden/expanded), color, and circular line buffer.
 - Layout repaints are debounced at ~60fps (16ms timer) per-pane to handle fast-scrolling output.
 - Processes are spawned with `detached: true` and killed via `process.kill(-pid)` to terminate entire process groups.
 - The runner uses Node's alt screen buffer so the terminal is fully restored on exit.
+
+## Code Style
+
+- **No abbreviations in names.** Use full words: `buildEnvironment` not `buildEnv`, `cleanUp` not `cleanup`, `runInfrastructure` not `runInfra`, `resolveAppWorkingDirectory` not `resolveAppCwd`.
+- **Function names must be verbs.** Getters use `get` prefix: `getColumns()`, `getRows()`, `getStatusTopRow()`. Actions use imperative verbs: `drawLayout()`, `scheduleRepaint()`, `killProcess()`.
+- **Boolean names use `is`/`has`/`was`/`should` prefixes.** `isInMenu`, `isExiting`, `isDimmed`, `shouldAugmentPath` — never bare adjectives or nouns.
+- **Prefer data structures over control flow.** Use lookup tables and dispatch maps instead of if/else chains and nested ternaries. See `keyHandlers` in runner.js, `STATE_DISPLAY` in layout.js, `TOGGLE_VISIBILITY` in runner.js, `resolveApps` strategy map in runner.js, and `keyBindings` arrays in menu.js.
+- **Prefer pure functions and immutable data.** Config validation returns new objects via spread (`{ ...APP_DEFAULTS, ...app }`) rather than mutating input. Use data-driven schemas (`REQUIRED_FIELDS`) over repetitive validation blocks.
+- **Extract shared logic, don't duplicate.** If the same pattern appears twice, extract it: `runInfrastructure()`, `launchApps()`, `checkPorts()`, and `interactiveMenu()` all exist to eliminate duplication.
+- **Zero dependencies.** Do not add npm dependencies. All functionality is implemented with Node built-ins.
