@@ -19,7 +19,20 @@ node bin/cli.js --all
 node bin/cli.js --apps web,api
 ```
 
-There is no build step, test suite, or linter configured. The project is plain JavaScript (ESM).
+No build step or linter. The project is plain JavaScript (ESM).
+
+```bash
+# Run all tests
+npm test
+
+# Run a single test file
+node --test test/terminal.test.js
+
+# Run tests matching a name pattern
+node --test --test-name-pattern="truncateToWidth" test/terminal.test.js
+```
+
+Tests use Node's built-in test runner (`node:test` + `node:assert/strict`), zero dependencies.
 
 ## Architecture
 

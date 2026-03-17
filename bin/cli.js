@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile } from 'node:fs/promises'
+import { realpathSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { loadConfig } from '../lib/config.js'
@@ -37,7 +38,7 @@ Keyboard shortcuts (while running):
 `)
 }
 
-const parseArgs = (argv) => {
+export const parseArgs = (argv) => {
   const args = argv.slice(2)
   const options = {}
 
@@ -106,4 +107,6 @@ const main = async () => {
   await runner.run({ all: options.all, apps: options.apps })
 }
 
-main()
+const resolveReal = (filePath) => { try { return realpathSync(filePath) } catch { return filePath } }
+const isDirectExecution = resolveReal(fileURLToPath(import.meta.url)) === resolveReal(path.resolve(process.argv[1] || ''))
+if (isDirectExecution) main()
