@@ -1,10 +1,10 @@
 {
   "name": "@voudo/devpanes",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Split-pane terminal UI for managing multiple dev processes",
   "type": "module",
   "bin": {
-    "devpanes": "./bin/cli.js"
+    "devpanes": "bin/cli.js"
   },
   "exports": {
     ".": "./lib/runner.js"
@@ -33,6 +33,6 @@
   "author": "Chad Beninati <chad@voudo.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Voudo/devpanes"
+    "url": "git+https://github.com/Voudo/devpanes.git"
   }
 }
