@@ -115,6 +115,27 @@ export default {
 - **60fps debounced rendering** — smooth output even with fast-scrolling builds
 - **500-line circular buffers** — keeps memory bounded per pane
 
+## Alternatives
+
+devpanes is a lightweight, focused tool for one specific workflow — managing a handful of local dev processes during rapid prototyping. It's not the only way to solve this problem, and depending on your needs, one of these might be a better fit:
+
+**Process runners** — Run multiple commands in parallel with merged, color-coded output in a single stream:
+- [concurrently](https://github.com/open-cli-tools/concurrently) — The most popular option (~9M weekly npm downloads). Simple and effective.
+- [npm-run-all2](https://github.com/bcomnes/npm-run-all2) — Great for running multiple npm scripts in parallel or sequence.
+- [node-foreman](https://github.com/strongloop/node-foreman) — Procfile-based, if you're coming from the Ruby/Foreman world.
+
+**TUI process managers** — Terminal UIs purpose-built for viewing multiple processes:
+- [mprocs](https://github.com/pvolok/mprocs) — Rust-based TUI with a sidebar/detail view and YAML config. Well-regarded.
+- [procmux](https://github.com/napisani/procmux) — Python-based, similar to mprocs with an HTTP control server.
+
+**Terminal multiplexers** — General-purpose terminal splitting (you manage processes yourself):
+- [tmux](https://github.com/tmux/tmux) — The standard. Extremely powerful and scriptable.
+- [Zellij](https://github.com/zellij-org/zellij) — Modern alternative to tmux with discoverable keybindings and layout templates.
+
+**Heavier orchestration** — When you need containers, networking, or production parity:
+- [Docker Compose](https://docs.docker.com/compose/) — The standard for multi-container local development.
+- [Overmind](https://github.com/DarthSim/overmind) — Procfile runner backed by tmux, lets you attach to individual processes.
+
 ## License
 
 MIT
