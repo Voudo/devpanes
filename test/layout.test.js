@@ -21,6 +21,7 @@ const makeEntry = (key, label, state = PANE_STATE.NORMAL) => ({
   color: '\x1b[36m',
   state,
   lines: [],
+  scrollOffset: 0,
 })
 
 const makeProcesses = (...entries) => {
@@ -135,5 +136,61 @@ describe('computePanes', () => {
     // 81 - 1 separator = 80, 80/2 = 40 each exactly
     assert.equal(panes[0].width, 40)
     assert.equal(panes[1].width, 40)
+  })
+})
+
+describe('focusedAppKey', () => {
+  const apps = [
+    { key: 'web', label: 'Web' },
+    { key: 'api', label: 'API' },
+  ]
+
+  it('starts with no focused pane', () => {
+    const layout = createLayout(apps, new Map())
+    assert.equal(layout.getFocusedAppKey(), null)
+  })
+
+  it('sets and gets focused app key', () => {
+    const layout = createLayout(apps, new Map())
+    layout.setFocusedAppKey('web')
+    assert.equal(layout.getFocusedAppKey(), 'web')
+  })
+
+  it('clears focused app key with null', () => {
+    const layout = createLayout(apps, new Map())
+    layout.setFocusedAppKey('web')
+    layout.setFocusedAppKey(null)
+    assert.equal(layout.getFocusedAppKey(), null)
+  })
+})
+
+describe('getContentHeight', () => {
+  const apps = [
+    { key: 'web', label: 'Web' },
+    { key: 'api', label: 'API' },
+    { key: 'db', label: 'DB' },
+  ]
+
+  beforeEach(() => setTerminalSize(80, 24))
+  afterEach(() => restoreTerminalSize())
+
+  it('returns positive content height', () => {
+    const layout = createLayout(apps, new Map())
+    const height = layout.getContentHeight()
+    assert.ok(height > 0)
+  })
+
+  it('matches pane height from computePanes', () => {
+    const processes = makeProcesses(['web', 'Web'])
+    const layout = createLayout(apps, processes)
+    const panes = layout.computePanes()
+    assert.equal(layout.getContentHeight(), panes[0].height)
+  })
+
+  it('accounts for status bar rows', () => {
+    // 24 rows, status bar = apps.length + 4 = 7 rows, content top = 2
+    // content bottom = 24 - 7 = 17, height = 17 - 2 + 1 = 16
+    const layout = createLayout(apps, new Map())
+    assert.equal(layout.getContentHeight(), 16)
   })
 })
