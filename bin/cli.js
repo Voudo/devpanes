@@ -32,6 +32,10 @@ Config discovery:
 Keyboard shortcuts (while running):
   1-9        Toggle pane visibility
   !@#$%^&    Expand/collapse pane
+  Tab        Cycle focus between panes
+  ↑/↓        Scroll focused pane
+  PgUp/PgDn  Scroll by full page
+  Esc        Unfocus pane / clear scroll
   s          Start more apps
   k          Kill an app
   q          Quit (stops all apps)
