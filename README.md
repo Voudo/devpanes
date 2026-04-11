@@ -102,7 +102,8 @@ export default {
 | `Tab` | Cycle focus between panes |
 | `↑` / `↓` | Scroll focused pane |
 | `Page Up` / `Page Down` | Scroll focused pane by full page |
-| `Esc` | Unfocus pane and clear scroll position |
+| `i` or `Enter` | Enter input mode (send stdin to focused pane) |
+| `Esc` | Exit input mode, or unfocus pane |
 | Mouse click | Focus a pane |
 | Scroll wheel | Scroll a pane |
 | `s` | Start more apps (opens selection menu) |
@@ -117,6 +118,7 @@ export default {
 - **Show/hide** — toggle panes on and off with number keys
 - **Port detection** — warns when a port is already in use
 - **Infrastructure pre-start** — run setup commands (e.g. docker compose) before starting an app
+- **Process input** — send stdin to any running process via input mode (`i` or `Enter` on a focused pane)
 - **Scroll and focus** — focus a pane with Tab or mouse click, scroll with arrow keys or scroll wheel
 - **Graceful cleanup** — kills all process groups and restores terminal on exit
 - **60fps debounced rendering** — smooth output even with fast-scrolling builds
