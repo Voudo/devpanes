@@ -1,6 +1,6 @@
 {
   "name": "@voudo/devpanes",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Split-pane terminal UI for managing multiple dev processes",
   "type": "module",
   "bin": {
