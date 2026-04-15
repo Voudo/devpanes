@@ -57,6 +57,13 @@ describe('buildEnvironment', () => {
     assert.ok(!environment.PATH.includes('/project/packages/web/node_modules/.bin'))
   })
 
+  it('sets FORCE_COLOR to enable colored output in piped processes', () => {
+    const config = { _configDir: '/project', settings: {} }
+    const app = { cwd: '.', env: {} }
+    const environment = buildEnvironment(config, app)
+    assert.equal(environment.FORCE_COLOR, '1')
+  })
+
   it('PATH entries are colon-separated', () => {
     const config = { _configDir: '/project', settings: {} }
     const app = { cwd: '.', env: {} }
