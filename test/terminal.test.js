@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert/strict'
-import { truncateToWidth } from '../lib/terminal.js'
+import { truncateToWidth, stripDestructiveEscapes } from '../lib/terminal.js'
 import { RESET } from '../lib/constants.js'
 
 describe('truncateToWidth', () => {
@@ -81,5 +81,46 @@ describe('truncateToWidth', () => {
         assert.ok(result.endsWith(RESET), `expected RESET suffix for input: ${JSON.stringify(input)}`)
       }
     })
+  })
+})
+
+describe('stripDestructiveEscapes', () => {
+  it('removes clear screen sequences', () => {
+    assert.equal(stripDestructiveEscapes('\x1b[2J'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[2J\x1b[3J\x1b[H'), '')
+  })
+
+  it('removes cursor movement sequences', () => {
+    assert.equal(stripDestructiveEscapes('\x1b[5A'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[3B'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[10C'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[2D'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[1;1H'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[1;1f'), '')
+  })
+
+  it('removes clear line sequences', () => {
+    assert.equal(stripDestructiveEscapes('\x1b[2K'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[0K'), '')
+  })
+
+  it('removes scroll region and private mode sequences', () => {
+    assert.equal(stripDestructiveEscapes('\x1b[r'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[?1049h'), '')
+    assert.equal(stripDestructiveEscapes('\x1b[?25l'), '')
+  })
+
+  it('preserves color and style codes', () => {
+    assert.equal(stripDestructiveEscapes('\x1b[31mhello\x1b[0m'), '\x1b[31mhello\x1b[0m')
+    assert.equal(stripDestructiveEscapes('\x1b[1m\x1b[36mbold cyan\x1b[0m'), '\x1b[1m\x1b[36mbold cyan\x1b[0m')
+  })
+
+  it('strips destructive sequences while preserving colors in mixed text', () => {
+    const input = '\x1b[2J\x1b[H\x1b[36mServer ready\x1b[0m'
+    assert.equal(stripDestructiveEscapes(input), '\x1b[36mServer ready\x1b[0m')
+  })
+
+  it('preserves plain text', () => {
+    assert.equal(stripDestructiveEscapes('hello world'), 'hello world')
   })
 })
